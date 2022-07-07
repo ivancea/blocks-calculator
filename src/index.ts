@@ -47,6 +47,14 @@ function draw() {
 
   drawingContext.clear();
 
+  for (const connection of program.connections) {
+    drawingContext.drawLine(
+      connection.inputBlock.getOutputPosition(connection.inputIndex),
+      connection.outputBlock.getInputPosition(connection.outputIndex),
+      drawingContext.palette.connection
+    );
+  }
+
   for (const block of program.blocks) {
     let text = `[${block.name}]`;
 
@@ -59,13 +67,5 @@ function draw() {
     showInfo(text);
 
     block.draw(drawingContext, executionContext);
-  }
-
-  for (const connection of program.connections) {
-    drawingContext.drawLine(
-      connection.inputBlock.getOutputPosition(connection.inputIndex),
-      connection.outputBlock.getInputPosition(connection.outputIndex),
-      drawingContext.palette.connection
-    );
   }
 }
